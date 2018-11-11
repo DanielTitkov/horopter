@@ -1,0 +1,71 @@
+/* LAYOUT */
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#layout {
+	margin: 0;
+	padding: 0;
+}
+
+.gap-blank {
+	padding: 0px;
+	margin: 0px;
+	display: block;
+	height: 20px;
+}
+
+/* CITIES PAGE */ 
+
+.date {
+	font-weight: bold;
+}
+
+.article-polarity {
+	font-weight: bold;
+	text-align: right;
+	text-transform: uppercase;
+}
+
+#latest-articles {
+	column-count: 2;
+	column-fill: balance;
+}
+
+.article-teaser {
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside:avoid;
+    -moz-page-break-inside:avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+}
+
+/* HEADER */
+
+#header .h1 {
+	color: #fff;
+}
+
+#header {
+	background: #323232;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.nav-link {
+	text-decoration: none;
+	color: #2196f3;
+}
+
+.nav-link:hover {
+	color: #8bc34a;
+}
+
+/* FOOTER */
+
+#footer {
+	background: #eee;
+	padding: 50px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
