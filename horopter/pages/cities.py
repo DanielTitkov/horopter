@@ -12,6 +12,7 @@ import config
 
 from server import app, Session, Result, City, Article
 from sqlalchemy import func
+from sqlalchemy.sql import text
 from datetime import datetime
 import pandas as pd
 import json
@@ -54,13 +55,21 @@ polarity_alias = {'pos':'Хорошие новости',
                   'neg': 'Плохие новости'}
 labels = polarity_alias.keys()
 
+
+sql = """
+SELECT timestamp, summary, city_name, coordinates FROM
+    (SELECT max(R.timestamp) AS mxts, C.city_id
+    FROM cities AS C JOIN results AS R ON C.city_id = R.city_id
+    GROUP BY C.city_id) AS t
+JOIN
+    (SELECT R.timestamp, R.summary, C.city_name, C.coordinates, C.city_id
+    FROM cities AS C 
+    JOIN results AS R ON C.city_id = R.city_id) AS a
+ON t.mxts = a.timestamp AND a.city_id = t.city_id;
+""" # thanks to postres
+
 session = Session()
-city_data = session.query(func.max(Result.timestamp), 
-                  Result.summary, 
-                  City.city_name, 
-                  City.coordinates).\
-        join(City, Result.city_id == City.city_id).\
-        group_by(City.city_id).all()
+city_data = session.execute(text(sql))
 
 
 columns=['timestamp', 'summary', 'city', 'coordinates']
